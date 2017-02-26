@@ -1,0 +1,15 @@
+version: '2'
+services:
+  owncloud:
+    image: owncloud:9.1.4
+    stdin_open: true
+    tty: true
+    ports:
+    - 80:80/tcp
+    labels:
+      io.rancher.container.pull_image: always
+    volumes:
+    - owncloud_data:/var/www/html
+volumes:
+  owncloud_data:
+    driver: rancher-nfs
