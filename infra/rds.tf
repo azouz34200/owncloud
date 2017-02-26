@@ -1,5 +1,5 @@
-resource "aws_db_instance" "db_oc_dev" {
-    identifier                = "db-oc-dev"
+resource "aws_db_instance" "db_oc" {
+    identifier                = "db-oc-${var.env}"
     allocated_storage         = "${var.db_storage_size}"
     storage_type              = "${var.db_storage_type}"
     engine                    = "${var.db_engine}"

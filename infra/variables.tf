@@ -1,9 +1,11 @@
-variable id_subnet_a_dev {}
+variable id_subnet_a {}
 variable region {}
-variable id_subnet_b_dev {}
-variable id_subnet_c_dev {}
-variable security_groups {}
-variable id_vpc_main_dev {}
+variable route53_zoneid{}
+variable id_subnet_b {}
+variable site {}
+variable id_subnet_c {}
+variable alb_security_groups {}
+variable id_vpc_main {}
 variable ec2_instance1 {}
 variable ec2_instance2 {}
 variable db_name {}
@@ -24,4 +26,4 @@ variable db_maintenance_window {}
 variable db_final_snapshot_identifier {}
 variable db_vpc_security_group_ids {}
 variable db_subnet_group_name {}
-variable s3-policy {}
+variable env {}

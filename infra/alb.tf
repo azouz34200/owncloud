@@ -1,24 +1,24 @@
-resource "aws_alb" "alb-oc-dev" {
+resource "aws_alb" "alb-oc" {
     idle_timeout    = 60
     internal        = false
-    name            = "alb-oc-dev"
-    security_groups = ["${var.security_groups}"]
-    subnets         = ["${var.id_subnet_a_dev}", "${var.id_subnet_b_dev}", "${var.id_subnet_c_dev}"]
+    name            = "alb-oc-${var.env}"
+    security_groups = ["${var.alb_security_groups}"]
+    subnets         = ["${var.id_subnet_a}", "${var.id_subnet_b}", "${var.id_subnet_c}"]
 
     enable_deletion_protection = false
 
     tags {
-        "env" = "d"
+      "env" = "${var.env}"
     }
 }
 
 resource "aws_alb_target_group" "gp-oc" {
-  name     = "alb-gp-oc-dev"
+  name     = "alb-gp-oc-${var.env}"
   port     = 80
   protocol = "HTTP"
-  vpc_id   = "${var.id_vpc_main_dev}"
+  vpc_id   = "${var.id_vpc_main}"
   tags {
-      "env" = "d"
+      "env" = "${var.env}"
   }
   stickiness{
   type = "lb_cookie"
@@ -31,7 +31,7 @@ resource "aws_alb_target_group" "gp-oc" {
 }
 
 resource "aws_alb_listener" "oc-front-end" {
-  load_balancer_arn = "${aws_alb.alb-oc-dev.id}"
+  load_balancer_arn = "${aws_alb.alb-oc.id}"
   port              = "80"
   protocol          = "HTTP"
 

@@ -1,9 +1,9 @@
 
-output "alb-dns-dev" {
-  value="${aws_alb.alb-oc-dev.dns_name}"
+output "alb-dns" {
+  value="${aws_alb.alb-oc.dns_name}"
 }
 
-output "db_dns-dev"{
+output "db_dns"{
 
-  value="${aws_db_instance.db_oc_dev.address}"
+  value="${aws_db_instance.db_oc.address}"
 }
