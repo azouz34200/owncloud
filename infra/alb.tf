@@ -26,7 +26,15 @@ resource "aws_alb_target_group" "gp-oc" {
   cookie_duration = 86400
 
 }
-
+health_check {
+  healthy_threshold   = 5
+  unhealthy_threshold = 2
+  timeout             = 5
+  interval            = 30
+  path                = "${var.health_check_path}"
+  protocol            = "HTTP"
+  port                = 80
+}
 
 }
 
@@ -40,12 +48,23 @@ resource "aws_alb_listener" "oc-front-end" {
     type             = "forward"
   }
 }
-resource "aws_alb_target_group_attachment" "gp_attach_oc2_dev" {
+resource "aws_alb_target_group_attachment" "gp_attach_oc2" {
   target_group_arn = "${aws_alb_target_group.gp-oc.arn}"
   target_id = "${var.ec2_instance1}"
   port = 80
 }
-resource "aws_alb_target_group_attachment" "gp_attach_oc_dev" {
+resource "aws_alb_listener" "oc-front-end-ssl" {
+  load_balancer_arn = "${aws_alb.alb-oc.id}"
+  port              = "443"
+  protocol          = "HTTPS"
+  ssl_policy = "ELBSecurityPolicy-2015-05"
+  certificate_arn = "${data.aws_acm_certificate.certificate.arn}"
+  default_action {
+    target_group_arn = "${aws_alb_target_group.gp-oc.id}"
+    type             = "forward"
+  }
+}
+resource "aws_alb_target_group_attachment" "gp_attach_oc" {
   target_group_arn = "${aws_alb_target_group.gp-oc.arn}"
   target_id = "${var.ec2_instance2}"
   port= 80

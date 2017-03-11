@@ -27,3 +27,4 @@ variable db_final_snapshot_identifier {}
 variable db_vpc_security_group_ids {}
 variable db_subnet_group_name {}
 variable env {}
+variable health_check_path {}
