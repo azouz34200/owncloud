@@ -1,6 +1,6 @@
 variable id_subnet_a {}
 variable region {}
-variable route53_zoneid{}
+variable route53_zoneid {}
 variable id_subnet_b {}
 variable site {}
 variable id_subnet_c {}
@@ -28,3 +28,5 @@ variable db_vpc_security_group_ids {}
 variable db_subnet_group_name {}
 variable env {}
 variable health_check_path {}
+variable endpoint_slack {}
+variable ec2_threshold {}
